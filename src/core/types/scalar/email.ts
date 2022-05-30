@@ -1,11 +1,11 @@
-import { brand, Branded, string } from 'io-ts'
+import { brand, Branded, string, TypeOf } from 'io-ts'
 import { withMessage } from 'io-ts-types'
 
 type EmailBrand = {
   readonly Email: unique symbol
 }
 
-export const Email = withMessage(
+export const emailCodec = withMessage(
   brand(
     string,
     (value): value is Branded<string, EmailBrand> => isEmail(value),
@@ -13,6 +13,8 @@ export const Email = withMessage(
   ),
   () => 'Invalid email',
 )
+
+export type Email = TypeOf<typeof emailCodec>
 
 export function isEmail (value: string) {
   return /^\w+.+?@\w+.+?$/.test(value)
