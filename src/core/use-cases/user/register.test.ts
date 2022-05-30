@@ -1,3 +1,4 @@
+import { unsafeEmail } from '@/config/tests/fixtures'
 import { CreateUser } from '@/core/types/user'
 import { pipe } from 'fp-ts/function'
 import { map } from 'fp-ts/TaskEither'
@@ -9,7 +10,7 @@ const registerOk: OutsideRegister<string> = async (data) => {
 
 const data: CreateUser = {
   username: 'Marlon',
-  email: 'marlon@email.com',
+  email: unsafeEmail('marlon@email.com'),
   password: '123',
 }
 

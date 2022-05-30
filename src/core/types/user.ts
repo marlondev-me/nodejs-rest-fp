@@ -1,5 +1,8 @@
+import { TypeOf } from 'io-ts'
+import { Email } from '@/core/types/scalar'
+
 export type User = {
-  email: string
+  email: TypeOf<typeof Email>
   token: string
   username: string
   bio: string
@@ -8,6 +11,6 @@ export type User = {
 
 export type CreateUser = {
   username: string
-  email: string
+  email: TypeOf<typeof Email>
   password: string
 }
