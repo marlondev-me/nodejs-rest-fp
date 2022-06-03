@@ -1,4 +1,4 @@
-import { unsafeEmail, mapAllTE } from '@/config/tests/fixtures'
+import { unsafeEmail, mapAll } from '@/config/tests/fixtures'
 import { CreateUser } from '@/core/types/user'
 import { pipe } from 'fp-ts/function'
 import { OutsideRegister, register } from './register'
@@ -17,6 +17,6 @@ it('Deveria cadastrar um usuario com sucesso', async () => {
   return pipe(
     data,
     register(registerOk),
-    mapAllTE(result => expect(result).toBe(`Usuario ${data.username} cadastrado com sucesso!`)),
+    mapAll(result => expect(result).toBe(`Usuario ${data.username} cadastrado com sucesso!`)),
   )()
 })
