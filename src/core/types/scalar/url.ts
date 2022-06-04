@@ -1,27 +1,30 @@
 import { URL } from 'url'
-import { brand, Branded, string, TypeOf } from 'io-ts'
+import * as E from 'fp-ts/Either'
+import * as t from 'io-ts'
 import { withMessage } from 'io-ts-types'
+import { pipe, constFalse, constTrue } from 'fp-ts/function'
 
 type UrlBrand = {
   readonly Url: unique symbol
 }
 
 export const urlCodec = withMessage(
-  brand(
-    string,
-    (value): value is Branded<string, UrlBrand> => isUrl(value),
+  t.brand(
+    t.string,
+    (value): value is t.Branded<string, UrlBrand> => isUrl(value),
     'Url',
   ),
   () => 'Invalid URL',
 )
 
-export type Url = TypeOf<typeof urlCodec>
+export type Url = t.TypeOf<typeof urlCodec>
 
-function isUrl (value:unknown) {
-  try {
-    const url = new URL(typeof value === 'string' ? value : '')
-    return !!url
-  } catch (e) {
-    return false
-  }
+function isUrl (value: unknown) {
+  return pipe(
+    E.tryCatch(
+      () => new URL(typeof value === 'string' ? value : ''),
+      E.toError,
+    ),
+    E.fold(constFalse, constTrue),
+  )
 }
