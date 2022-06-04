@@ -5,7 +5,7 @@ import { register, OutsideRegisterType } from '@/adapters/user/register-adapter'
 
 const app = express()
 
-const PORT = 3333
+const PORT = process.env.PORT
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
