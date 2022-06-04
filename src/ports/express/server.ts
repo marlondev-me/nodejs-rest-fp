@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/TaskEither'
-import { register, OutsideRegisterType } from '@/adapters/user/register-adapter'
+import { register, OutsideRegisterType } from '@/adapters/use-cases/user/register-adapter'
 
 const app = express()
 
