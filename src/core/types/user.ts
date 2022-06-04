@@ -1,10 +1,15 @@
-import { emailCodec, urlCodec } from '@/core/types/scalar'
+import {
+  emailCodec,
+  passwordCodec,
+  urlCodec,
+  slugCodec,
+} from '@/core/types/scalar'
 import { string, type, TypeOf } from 'io-ts'
 
 export const userCodec = type({
   email: emailCodec,
   token: string,
-  username: string,
+  username: slugCodec,
   bio: string,
   image: urlCodec,
 })
@@ -12,9 +17,9 @@ export const userCodec = type({
 export type User = TypeOf<typeof userCodec>
 
 export const createUserCodec = type({
-  username: string,
+  username: slugCodec,
   email: emailCodec,
-  password: string,
+  password: passwordCodec,
 })
 
 export type CreateUser = TypeOf<typeof createUserCodec>
