@@ -4,15 +4,23 @@ import {
   urlCodec,
   slugCodec,
 } from '@/core/types/scalar'
-import { string, type, TypeOf } from 'io-ts'
+import { intersection, partial, string, type, TypeOf } from 'io-ts'
 
-export const userCodec = type({
+const userCodecRequired = type({
   email: emailCodec,
-  token: string,
   username: slugCodec,
+})
+
+const userCodecPartial = partial({
+  token: string,
   bio: string,
   image: urlCodec,
 })
+
+export const userCodec = intersection([
+  userCodecRequired,
+  userCodecPartial,
+])
 
 export type User = TypeOf<typeof userCodec>
 
